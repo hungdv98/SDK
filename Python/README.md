@@ -407,3 +407,51 @@ Includes contributions from [CSIRTAmericas](https://github.com/CSIRTAmericas/pyi
 , [zer0pwn](https://github.com/zeropwn/intelx.py), [magoo](https://github.com/IntelligenceX/SDK/pull/581)
  and
 [others](https://github.com/IntelligenceX/SDK/graphs/contributors)
+
+## Release
+
+### Environment
+
+- [X] Increment [Semantic Version](https://semver.org/) minor `version` of `pyproject.toml`
+- [X] Invrement `user_agent='IX`
+- [X] Increment `requires-python` of `pyproject.toml` to [Python Supported Versions](https://devguide.python.org/versions/#supported-versions)
+- [X] Execute `source ./venv/bin/activate`
+
+#### [PEP 751 Lockfile](https://docs.astral.sh/uv/concepts/projects/layout/#the-lockfile)
+
+- [X] Execute `pip lock -r requirements-dev.txt`
+- [X] Execute `git add pylock.toml`
+`uv export -o pylock.toml` overrides `pip lock -r requirements-dev.txt` as the lockfile was created by `pip` and not `uv` so changes flagged by `git diff` can be ignored.
+- [X] Execute [`uv export -o pylock.toml`]
+- [X] Execute [`git add uv.lock`]
+
+### Build
+
+- [X] Execute [`python3 -m build`](https://packaging.python.org/en/latest/tutorials/packaging-projects/#generating-distribution-archives)
+- [X] Execute `gpg --armor --detach-sign --output intelx-0.8.0.tar.gz.asc intelx-0.8.0.tar.gz`
+- [X] Execute `gpg --armor --detach-sign --output intelx-0.8.0-py3-none-any.whl.asc intelx-0.8.0-py3-none-any.whl`
+- [X] Execute [`cd ./dist`] and then [`pip install ./intelx-0.8.0.tar.gz`](https://pip.pypa.io/en/latest/topics/local-project-installs/#regular-installs)
+
+### Test
+
+- [X] Execute `intelx.py -search riseup.net`
+- [X] Execute `intelx.py -search riseup.net -buckets "pastes, darknet.tor"`
+- [X] Execute `intelx.py -search riseup.net -limit 100`
+- [X] Execute `intelx.py -download 29a97791-1138-40b3-8cf1-de1764e9d09c -bucket leaks.private.general -name test.txt`
+- [ ] Execute `intelx.py -search 3a4d5699-737c-4d22-8dbd-c5391ce805df --view`
+- [X] Execute `intelx.py -search cia.gov --phonebook emails`
+- [X] Execute `intelx.py -identity riseup.net --exportaccounts`
+- [X] Execute `intelx.py -identity riqseup.net --dataleaks`
+
+### Release
+
+#### Change Log
+
+- [X] Execute `git log --grep "cliff"`
+- [X] Execute `git cliff --output ./changelog/0.8.0-CHANGELOG.md 048c4ceaf20bbd8acf4c..`
+- [X] Edit `./changelog/0.8.0-CHANGELOG.md`
+- [X] Execute `git add ./changelog/0.8.0-CHANGELOG.md`
+
+#### Upload to Python Packaging Index
+
+- [X] Execute `$ python3 -m twine upload --repository testpypi dist/*`

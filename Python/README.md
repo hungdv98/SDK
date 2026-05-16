@@ -455,4 +455,4 @@ Includes contributions from [CSIRTAmericas](https://github.com/CSIRTAmericas/pyi
 
 #### Upload to Python Packaging Index
 
-- [X] Execute `$ python3 -m twine upload --repository testpypi dist/*`
+- [X] Execute `python3 -m twine upload --repository testpypi dist/*`

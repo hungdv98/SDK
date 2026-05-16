@@ -1,6 +1,6 @@
 # https://www.debian.org/releases/
 # https://devguide.python.org/versions/#versions
-# https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/python
+# https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/python/tag/3.14-trixie
 FROM mcr.microsoft.com/devcontainers/python:3.14-trixie
 
 # OS deps you likely need for builds

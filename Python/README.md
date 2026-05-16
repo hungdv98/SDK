@@ -412,6 +412,7 @@ Includes contributions from [CSIRTAmericas](https://github.com/CSIRTAmericas/pyi
 
 ### Environment
 
+- [X] Execute `docker pull mcr.microsoft.com/devcontainers/python:3.14-trixie@sha256:9e51c13505754efe79dd4a0b1a29523d3854090dabb8add3f3fa642ea3c98fad` in addition to [Docker + VS Code instructions](#docker--vs-code)
 - [X] Increment [Semantic Version](https://semver.org/) minor `version` of `pyproject.toml`
 - [X] Invrement `user_agent='IX`
 - [X] Increment `requires-python` of `pyproject.toml` to [Python Supported Versions](https://devguide.python.org/versions/#supported-versions)

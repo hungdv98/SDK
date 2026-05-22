@@ -1,7 +1,6 @@
 {
   "build": {
     "dockerfile": "Dockerfile"
-    "context": ".."
   },
   "name": "IntelX SDK Dev Container"
 }

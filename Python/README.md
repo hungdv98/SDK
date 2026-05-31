@@ -1,9 +1,23 @@
-# intelx.py
+# intelx Python Package
+
+## Statistics
 
 ![PyPI - Version](https://img.shields.io/pypi/v/intelx)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/intelx)
 ![PyPI - Downloads](https://img.shields.io/pypi/dw/intelx)
 ![PyPI - Downloads](https://img.shields.io/pypi/dd/intelx)
+
+### Web Statistics
+
+[pepy.tech](https://pepy.tech/projects/intelx)
+
+[ClickPy](https://clickpy.clickhouse.com/dashboard/intelx)
+
+[Open Source Insights](https://deps.dev/pypi/intelx)
+
+[PyPI Stats](https://pypistats.org/packages/intelx)
+
+## Introduction
 
 intelx.py is a Python command-line utility and API wrapper for intelx.io, made
 to perform any kind of open-source intelligence.
@@ -38,6 +52,8 @@ python -m pip install -e .
 
 ### Docker + VS Code
 
+#### Setup
+
 Open the Dev Container and get a shell (VS Code)
 
 1. Set up the environment variable as described in the [Environment Variable](#environment-variable) section.
@@ -51,6 +67,10 @@ Open the Dev Container and get a shell (VS Code)
 - Not in a container? Click the green corner button (><) → **Reopen in Container**.
 - Need a clean build? **Dev Containers: Rebuild Without Cache**.
 
+#### Configure
+
+1. $VIRTUAL_ENV is configured for the path of the virtual environment theefore executing `source $VIRTUAL_ENV/bin/activate`
+2. The development dependencies are installed by executing `pip install --no-cache-dir -r ./requirements-dev.txt && pip check`
 
 ```bash
 python -m pip install -e .
@@ -73,20 +93,22 @@ Copy ```.env.sample``` to ```.env``` and set your values. You can create also yo
 # create an INTELX_KEY env var with your API key.
 INTELX_KEY="00000000-0000-0000-0000-000000000000"
 INTELX_BASE_URL="https://2.intelx.io"
+
+$ set -a; source .env; set +a
 ```
 
 ### Via the client
 
 ```bash
- export INTELX_APIKEY=00000000-0000-0000-0000-000000000000
+ export INTELX_KEY=00000000-0000-0000-0000-000000000000
 
-intelx.py -search riseup.net -apikey "$INTELX_APIKEY"
+intelx.py -search riseup.net -apikey "$INTELX_KEY"
 ```
 
 or, when running directly from the source tree:
 
 ```bash
-python -m scripts.intelx -search riseup.net -apikey "$INTELX_APIKEY"
+python -m scripts.intelx -search riseup.net -apikey "$INTELX_KEY"
 ```
 
 ## Configuration
@@ -146,6 +168,14 @@ use the `--view` parameter:
 
 ```bash
 intelx.py -search 3a4d5699-737c-4d22-8dbd-c5391ce805df --view
+```
+
+#### Export Search
+
+To export the full data of a specific search result, use the `--exportfromsearch` and `--exportfileformat` parameters:
+
+```bash
+intelx.py -search email@email.com --exportfromsearch --exportfileformat 1 -limit 5 -buckets "pastes,leaks.private.general, leaks.logs, whois, usenet"
 ```
 
 #### Extract Email from Phonebook Search
@@ -407,3 +437,61 @@ Includes contributions from [CSIRTAmericas](https://github.com/CSIRTAmericas/pyi
 , [zer0pwn](https://github.com/zeropwn/intelx.py), [magoo](https://github.com/IntelligenceX/SDK/pull/581)
  and
 [others](https://github.com/IntelligenceX/SDK/graphs/contributors)
+
+## Release
+
+### Environment
+
+- [X] Execute `docker pull mcr.microsoft.com/devcontainers/python:3.14-trixie@sha256:882b17d068262c7af4300180ead0ee14423d2c03393778c92435b0ca642dea07` in addition to [Docker + VS Code instructions](#docker--vs-code)
+- [X] Increment [Semantic Version](https://semver.org/) minor `version` of `pyproject.toml`
+- [X] Increment `user_agent='IX`
+- [X] Increment `IntelX_SDK/Python/intelx/__init__.py`
+- [X] Increment `requires-python` of `pyproject.toml` to [Python Supported Versions](https://devguide.python.org/versions/#supported-versions)
+- [X] Execute `source ./$VIRUTAL_ENV/bin/activate`
+- [X] Execute `pip install -r requirements-dev.in`
+
+#### [PEP 751 Lockfile](https://docs.astral.sh/uv/concepts/projects/layout/#the-lockfile)
+
+- [X] Execute `pip lock -r requirements-dev.txt`
+- [X] Execute `git add pylock.toml`
+- [X] Execute `uv lock`
+- [X] Execute `git add uv.lock`
+
+### Build
+
+- [X] Execute [`python3 -m build`](https://packaging.python.org/en/latest/tutorials/packaging-projects/#generating-distribution-archives)
+- [X] Execute `cd ./dist` and then execute `gpg --armor --detach-sign --output intelx-0.8.1.tar.gz.asc intelx-0.8.1.tar.gz`
+- [X] Execute `gpg --armor --detach-sign --output intelx-0.8.1-py3-none-any.whl.asc intelx-0.8.1-py3-none-any.whl`
+- [X] Execute [`pip install ./intelx-0.8.1.tar.gz`](https://pip.pypa.io/en/latest/topics/local-project-installs/#regular-installs)
+
+### Test
+
+- [X] Execute `set -a; source .env; set +a`
+- [X] Execute `intelx.py -search riseup.net`
+- [X] Execute `intelx.py -search riseup.net -buckets "pastes, darknet.tor"`
+- [X] Execute `intelx.py -search riseup.net -limit 100`
+- [X] Execute `intelx.py -download 29a97791-1138-40b3-8cf1-de1764e9d09c -bucket leaks.private.general -name test.txt`
+- [X] Execute `intelx.py -search email@email.com --exportfromsearch --exportfileformat 1 -limit 5 -buckets "pastes,leaks.private.general, leaks.logs, whois, usenet`
+- [X] Execute `intelx.py -search 3a4d5699-737c-4d22-8dbd-c5391ce805df --view`
+- [X] Execute `intelx.py -search cia.gov --phonebook emails`
+- [X] Execute `intelx.py -identity riseup.net --exportaccounts`
+- [X] Execute `intelx.py -identity riqseup.net --dataleaks`
+
+### Release
+
+#### Change Log
+
+- [X] Execute `git log --grep "cliff"`
+- [X] Execute `git cliff --output ./changelog/0.8.0-CHANGELOG.md 5e533b8c44119..`
+- [X] Edit `./changelog/0.8.1-CHANGELOG.md`
+- [ ] Execute `git add ./changelog/0.8.1-CHANGELOG.md`
+
+#### Upload to Python Packaging Index
+
+##### TestPyPI
+
+- [ ] Execute `python3 -m twine upload --repository testpypi dist/*`
+
+##### PyPI
+
+- [ ] Execute `python3 -m twine upload dist/*`

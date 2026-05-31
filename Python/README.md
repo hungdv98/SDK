@@ -442,34 +442,37 @@ Includes contributions from [CSIRTAmericas](https://github.com/CSIRTAmericas/pyi
 
 ### Environment
 
-- [X] Execute `docker pull mcr.microsoft.com/devcontainers/python:3.14-trixie@sha256:9e51c13505754efe79dd4a0b1a29523d3854090dabb8add3f3fa642ea3c98fad` in addition to [Docker + VS Code instructions](#docker--vs-code)
+- [X] Execute `docker pull mcr.microsoft.com/devcontainers/python:3.14-trixie@sha256:882b17d068262c7af4300180ead0ee14423d2c03393778c92435b0ca642dea07` in addition to [Docker + VS Code instructions](#docker--vs-code)
 - [X] Increment [Semantic Version](https://semver.org/) minor `version` of `pyproject.toml`
-- [X] Invrement `user_agent='IX`
+- [X] Increment `user_agent='IX`
+- [X] Increment `IntelX_SDK/Python/intelx/__init__.py`
 - [X] Increment `requires-python` of `pyproject.toml` to [Python Supported Versions](https://devguide.python.org/versions/#supported-versions)
-- [X] Execute `source ./venv/bin/activate`
+- [X] Execute `source ./$VIRUTAL_ENV/bin/activate`
+- [X] Execute `pip install -r requirements-dev.in`
 
 #### [PEP 751 Lockfile](https://docs.astral.sh/uv/concepts/projects/layout/#the-lockfile)
 
 - [X] Execute `pip lock -r requirements-dev.txt`
 - [X] Execute `git add pylock.toml`
-`uv export -o pylock.toml` overrides `pip lock -r requirements-dev.txt` as the lockfile was created by `pip` and not `uv` so changes flagged by `git diff` can be ignored.
-- [X] Execute [`uv export -o pylock.toml`]
-- [X] Execute [`git add uv.lock`]
+- [X] Execute `uv lock`
+- [X] Execute `git add uv.lock`
 
 ### Build
 
 - [X] Execute [`python3 -m build`](https://packaging.python.org/en/latest/tutorials/packaging-projects/#generating-distribution-archives)
-- [X] Execute `gpg --armor --detach-sign --output intelx-0.8.0.tar.gz.asc intelx-0.8.0.tar.gz`
-- [X] Execute `gpg --armor --detach-sign --output intelx-0.8.0-py3-none-any.whl.asc intelx-0.8.0-py3-none-any.whl`
-- [X] Execute [`cd ./dist`] and then [`pip install ./intelx-0.8.0.tar.gz`](https://pip.pypa.io/en/latest/topics/local-project-installs/#regular-installs)
+- [X] Execute `cd ./dist` and then execute `gpg --armor --detach-sign --output intelx-0.8.1.tar.gz.asc intelx-0.8.1.tar.gz`
+- [X] Execute `gpg --armor --detach-sign --output intelx-0.8.1-py3-none-any.whl.asc intelx-0.8.1-py3-none-any.whl`
+- [X] Execute [`pip install ./intelx-0.8.1.tar.gz`](https://pip.pypa.io/en/latest/topics/local-project-installs/#regular-installs)
 
 ### Test
 
+- [X] Execute `set -a; source .env; set +a`
 - [X] Execute `intelx.py -search riseup.net`
 - [X] Execute `intelx.py -search riseup.net -buckets "pastes, darknet.tor"`
 - [X] Execute `intelx.py -search riseup.net -limit 100`
 - [X] Execute `intelx.py -download 29a97791-1138-40b3-8cf1-de1764e9d09c -bucket leaks.private.general -name test.txt`
-- [ ] Execute `intelx.py -search 3a4d5699-737c-4d22-8dbd-c5391ce805df --view`
+- [X] Execute `intelx.py -search email@email.com --exportfromsearch --exportfileformat 1 -limit 5 -buckets "pastes,leaks.private.general, leaks.logs, whois, usenet`
+- [X] Execute `intelx.py -search 3a4d5699-737c-4d22-8dbd-c5391ce805df --view`
 - [X] Execute `intelx.py -search cia.gov --phonebook emails`
 - [X] Execute `intelx.py -identity riseup.net --exportaccounts`
 - [X] Execute `intelx.py -identity riqseup.net --dataleaks`
@@ -479,10 +482,16 @@ Includes contributions from [CSIRTAmericas](https://github.com/CSIRTAmericas/pyi
 #### Change Log
 
 - [X] Execute `git log --grep "cliff"`
-- [X] Execute `git cliff --output ./changelog/0.8.0-CHANGELOG.md 048c4ceaf20bbd8acf4c..`
-- [X] Edit `./changelog/0.8.0-CHANGELOG.md`
-- [X] Execute `git add ./changelog/0.8.0-CHANGELOG.md`
+- [X] Execute `git cliff --output ./changelog/0.8.0-CHANGELOG.md 5e533b8c44119..`
+- [X] Edit `./changelog/0.8.1-CHANGELOG.md`
+- [ ] Execute `git add ./changelog/0.8.1-CHANGELOG.md`
 
 #### Upload to Python Packaging Index
 
-- [X] Execute `python3 -m twine upload --repository testpypi dist/*`
+##### TestPyPI
+
+- [ ] Execute `python3 -m twine upload --repository testpypi dist/*`
+
+##### PyPI
+
+- [ ] Execute `python3 -m twine upload dist/*`

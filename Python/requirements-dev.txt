@@ -8,3 +8,9 @@ pre-commit
 git-cliff
 bandit
 uv
+# https://pip.pypa.io/en/latest/news/#v26-1
+pip>=26.1
+pip-tools
+pip-review
+pipdeptree
+wheel
